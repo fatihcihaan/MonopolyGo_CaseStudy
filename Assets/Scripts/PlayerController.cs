@@ -31,12 +31,17 @@ public class PlayerController : MonoBehaviour
     private int currentTileIndex = 0;
     private bool isMoving = false;
 
-    // YENİ TAKTİK: Sadece yediğimiz (topladığımız) meyveleri aklımızda tutacağız!
     private List<GameObject> toplananMeyveler = new List<GameObject>();
 
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
+
+        // YENİ: Oyun açıldığında bilgisayarın hafızasına bak, kayıt varsa sayıları geri çek!
+        appleCount = PlayerPrefs.GetInt("Kayıt_Elma", 0);
+        pearCount = PlayerPrefs.GetInt("Kayıt_Armut", 0);
+        strawberryCount = PlayerPrefs.GetInt("Kayıt_Cilek", 0);
+
         UpdateInventoryUI();
 
         if (diceText != null) diceText.text = "";
@@ -109,7 +114,6 @@ public class PlayerController : MonoBehaviour
                 startPosition.y += 0.5f;
                 transform.position = startPosition;
 
-                // Araba başa döndüğünde yediğimiz meyveleri geri yola diziyoruz :)
                 ResetMapFruits();
             }
 
@@ -129,7 +133,6 @@ public class PlayerController : MonoBehaviour
 
     void ResetMapFruits()
     {
-        // Sadece topladığımız meyveleri tekrar görünür yapıyoruz
         foreach (GameObject fruit in toplananMeyveler)
         {
             if (fruit != null)
@@ -137,17 +140,29 @@ public class PlayerController : MonoBehaviour
                 fruit.SetActive(true);
             }
         }
-        // Meyveleri yola dizdikten sonra hafızayı temizle ki bir sonraki turda çorba olmasın
         toplananMeyveler.Clear();
-        Debug.Log("✨ Arabamız başa sardı, yenilen meyveler yola geri dizildi!");
     }
 
     void CollectReward(string type, int amount)
     {
-        if (type.Contains("Apple")) appleCount += amount;
-        else if (type.Contains("Pear")) pearCount += amount;
-        else if (type.Contains("Strawberry")) strawberryCount += amount;
+        // YENİ: Meyveyi topladığımız an anında bilgisayarın hafızasına (PlayerPrefs) kaydediyoruz!
+        if (type.Contains("Apple"))
+        {
+            appleCount += amount;
+            PlayerPrefs.SetInt("Kayıt_Elma", appleCount);
+        }
+        else if (type.Contains("Pear"))
+        {
+            pearCount += amount;
+            PlayerPrefs.SetInt("Kayıt_Armut", pearCount);
+        }
+        else if (type.Contains("Strawberry"))
+        {
+            strawberryCount += amount;
+            PlayerPrefs.SetInt("Kayıt_Cilek", strawberryCount);
+        }
 
+        PlayerPrefs.Save(); // Kaydı kalıcı olarak mühürle
         UpdateInventoryUI();
     }
 
@@ -175,7 +190,6 @@ public class PlayerController : MonoBehaviour
                 Instantiate(collectEffect, other.transform.position, Quaternion.identity);
             }
 
-            // YENİ TAKTİK: Meyveyi gizlemeden HEMEN ÖNCE aklımıza (listeye) yazıyoruz!
             if (!toplananMeyveler.Contains(other.gameObject))
             {
                 toplananMeyveler.Add(other.gameObject);
