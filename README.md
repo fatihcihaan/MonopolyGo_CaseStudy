@@ -4,8 +4,9 @@ Bu proje, Monopoly tarzı grid tabanlı bir haritada zar atarak ilerlenen ve 3D 
 
 ## 🎮 Oyunu Hemen Oyna (Playable Build)
 Unity'yi açmakla uğraşmadan oyunu direkt bilgisayarınızda test etmek için:
-👉 **[Oynanabilir Sürümü Buradan İndirin (ZIP)](https://drive.google.com/file/d/1xfhFe4_f14nEwtmdwmDylzMNt15lzQxJ/view?usp=sharing)**
+👉 **[Oynanabilir Sürümü Buradan İndirin (ZIP)](https://drive.google.com/file/d/1mSijJ4_QjpTFLBa2MEJ13kivYzXN39rp/view?usp=sharing)**
 *(İndirdiğiniz ZIP dosyasını klasöre çıkartın ve `.exe` dosyasına çift tıklayarak oynayın.)*
+👉 **[Oynanış Videosunu Buradan İzleyebilirsiniz](https://drive.google.com/file/d/11jbjWigJsje3iBCrCFu6wvFuHldnoFAL/view?usp=sharing)**
 
 ## 🕹️ Nasıl Oynanır?
 * **Oyun Başlangıcı:** Ana menüden "Oyunu Başlat" butonuna basarak Monopoly tahtasına giriş yapın.
